@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoRift</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sora:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="game-root"></div>
+
+    <div id="loading-screen" class="overlay visible">
+      <h1>EcoRift</h1>
+      <p>Preparing restoration network systems...</p>
+    </div>
+
+    <div id="character-screen" class="overlay hidden">
+      <div class="panel character-panel">
+        <h2>Restorer Registration</h2>
+        <p class="panel-subtitle">Year 2086. Configure your GRN field profile.</p>
+        <form id="character-form">
+          <label>
+            Name
+            <input type="text" id="char-name" maxlength="42" required placeholder="Enter operative name" value="Eco Learner" />
+          </label>
+          <label>
+            Body Type
+            <select id="char-body" required>
+              <option>Adaptive</option>
+              <option>Athletic</option>
+              <option>Heavy Frame</option>
+              <option>Recon Slim</option>
+            </select>
+          </label>
+          <label>
+            Hair Style
+            <select id="char-hair" required>
+              <option>Wave Cut</option>
+              <option>Cropped Coil</option>
+              <option>Long Tied</option>
+              <option>Shaved Techline</option>
+            </select>
+          </label>
+          <label>
+            Suit Color
+            <input type="color" id="char-color" value="#2ec27e" />
+          </label>
+          <label>
+            Background Class
+            <select id="char-class" required>
+              <option value="Scientist">Scientist (+water analysis, cleanup precision)</option>
+              <option value="Engineer">Engineer (+energy efficiency, fabrication)</option>
+              <option value="Explorer">Explorer (+mobility, survey speed)</option>
+              <option value="Diplomat">Diplomat (+reputation, negotiation rewards)</option>
+            </select>
+          </label>
+          <button type="submit">Deploy to EcoRift</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="hud" class="hidden">
+      <div id="top-bar">
+        <div class="metric"><span>Health</span><strong id="hud-health">100</strong></div>
+        <div class="metric"><span>Energy</span><strong id="hud-energy">100</strong></div>
+        <div class="metric"><span>Air Quality</span><strong id="hud-air">--</strong></div>
+        <div class="metric"><span>Water Quality</span><strong id="hud-water">--</strong></div>
+        <div class="metric"><span>Biodiversity</span><strong id="hud-biodiversity">--</strong></div>
+        <div class="metric"><span>Climate Stability</span><strong id="hud-climate">--</strong></div>
+        <div class="metric"><span>Funding</span><strong id="hud-funding">--</strong></div>
+        <div class="metric"><span>Reputation</span><strong id="hud-reputation">--</strong></div>
+        <div class="metric"><span>Year</span><strong id="hud-year">2086</strong></div>
+        <div class="metric metric-balance">
+          <span>Planet Balance</span>
+          <div class="balance-track">
+            <div id="hud-good-bar" class="good-bar"></div>
+            <div id="hud-bad-bar" class="bad-bar"></div>
+          </div>
+          <strong id="hud-balance">Healthy 50% | Unhealthy 50%</strong>
+        </div>
+      </div>
+
+      <div id="left-stack">
+        <div id="mission-tracker" class="panel small-panel">
+          <h3>Mission Tracker</h3>
+          <div id="mission-content">No active mission.</div>
+        </div>
+
+        <div id="tutorial-panel" class="panel small-panel">
+          <h3>Guided Tutorial</h3>
+          <div id="tutorial-content">Complete registration to begin onboarding.</div>
+        </div>
+
+        <div id="education-panel" class="panel small-panel">
+          <h3>Eco Impact Brief</h3>
+          <div id="education-content">Step into the field and press <strong>Esc</strong> for the full environmental guide.</div>
+        </div>
+
+        <div id="action-hints" class="panel small-panel">
+          <h3>Field Tools</h3>
+          <p>Press <strong>Esc</strong> for controls, strict mission route, and environmental science notes.</p>
+        </div>
+      </div>
+
+      <div id="objective-nav" class="panel tiny-panel">
+        <h3>Route Beacon</h3>
+        <p id="objective-nav-line">Linking route...</p>
+      </div>
+
+      <div id="stage-complete-panel" class="panel tiny-panel hidden">
+        <h3 id="stage-complete-title">Island Complete</h3>
+        <p id="stage-complete-message">All objectives cleared.</p>
+        <button id="btn-next-island" type="button">Teleport to Next Island</button>
+      </div>
+
+      <canvas id="minimap" width="220" height="220"></canvas>
+
+      <div id="combat-panel" class="panel tiny-panel">
+        <h3>FPS Combat</h3>
+        <p>Weapon: GRN Pulse Rifle</p>
+        <p>Ammo: <strong id="hud-ammo">INF</strong> | Reserve: <strong id="hud-reserve">INF</strong></p>
+        <p>Status: <strong id="hud-weapon-state">Ready</strong></p>
+      </div>
+
+      <div id="crosshair" title="Aim"></div>
+      <div id="weapon-hud" aria-hidden="true">
+        <div class="weapon-shell">
+          <span class="gun-part gun-stock"></span>
+          <span class="gun-part gun-receiver"></span>
+          <span class="gun-part gun-handguard"></span>
+          <span class="gun-part gun-barrel"></span>
+          <span class="gun-part gun-sight"></span>
+          <span class="gun-part gun-grip"></span>
+          <span class="gun-part gun-mag"></span>
+          <span class="gun-part gun-flash"></span>
+        </div>
+      </div>
+      <div id="fps-lock-tip" class="panel tiny-panel">Click the world to lock mouse and enter full FPS control</div>
+
+      <div id="menu-buttons" class="panel tiny-panel">
+        <button id="btn-map">World Map</button>
+        <button id="btn-missions">Mission Log</button>
+        <button id="btn-achievements">Achievements</button>
+        <button id="btn-planet">Planet Viewer</button>
+        <button id="btn-satellite">Satellite Mode</button>
+        <button id="btn-settings">Settings</button>
+        <button id="btn-save">Save</button>
+      </div>
+    </div>
+
+    <div id="world-map-panel" class="floating-panel hidden">
+      <h3>World Travel Grid</h3>
+      <p>Live mission pings highlight your next target region.</p>
+      <canvas id="world-map-canvas" width="760" height="420"></canvas>
+      <div id="travel-buttons"></div>
+      <button class="close-btn" data-close="world-map-panel">Close</button>
+    </div>
+
+    <div id="mission-log-panel" class="floating-panel hidden">
+      <h3>Mission Log</h3>
+      <div id="mission-log-list"></div>
+      <button class="close-btn" data-close="mission-log-panel">Close</button>
+    </div>
+
+    <div id="achievements-panel" class="floating-panel hidden">
+      <h3>Achievements</h3>
+      <div id="achievements-list"></div>
+      <button class="close-btn" data-close="achievements-panel">Close</button>
+    </div>
+
+    <div id="planet-panel" class="floating-panel hidden wide">
+      <h3>Planet Impact Visualizer</h3>
+      <canvas id="planet-canvas" width="720" height="360"></canvas>
+      <div id="planet-metrics"></div>
+      <button class="close-btn" data-close="planet-panel">Close</button>
+    </div>
+
+    <div id="satellite-panel" class="floating-panel hidden">
+      <h3>Satellite Mode</h3>
+      <label>
+        Heatmap
+        <select id="satellite-layer">
+          <option value="pollution">Pollution Heatmap</option>
+          <option value="deforestation">Deforestation Map</option>
+          <option value="temperature">Temperature Anomalies</option>
+          <option value="plastic">Ocean Plastic Density</option>
+          <option value="energy">Energy Infrastructure</option>
+        </select>
+      </label>
+      <p>Satellite mode is active. Use `M` to toggle orbital camera.</p>
+      <button class="close-btn" data-close="satellite-panel">Close</button>
+    </div>
+
+    <div id="settings-panel" class="floating-panel hidden">
+      <h3>Settings</h3>
+      <label>
+        Master Audio
+        <input id="audio-toggle" type="checkbox" checked />
+      </label>
+      <label>
+        Master Volume
+        <div class="range-row">
+          <input id="master-volume" type="range" min="0" max="100" step="1" value="70" />
+          <span id="master-volume-value">70%</span>
+        </div>
+      </label>
+      <label>
+        Background Music
+        <input id="music-toggle" type="checkbox" checked />
+      </label>
+      <label>
+        Graphics Quality
+        <select id="graphics-quality-select">
+          <option value="high">High</option>
+          <option value="performance">Performance</option>
+        </select>
+      </label>
+      <label>
+        Auto Save (10s)
+        <input id="autosave-toggle" type="checkbox" checked />
+      </label>
+      <label>
+        NPC Guide Channel
+        <select id="npc-provider-select">
+          <option value="offline">Offline Guide (No local model required)</option>
+          <option value="ollama">Local Guide Service</option>
+          <option value="openai">Cloud Guide Service</option>
+        </select>
+      </label>
+      <label>
+        Local Service URL
+        <input id="ollama-url-input" type="text" value="http://127.0.0.1:11434" autocomplete="off" />
+      </label>
+      <label>
+        Guide Profile
+        <input id="ollama-model-input" type="text" value="llama3.2:3b" autocomplete="off" />
+      </label>
+      <label>
+        Cloud Access Key (cloud channel only)
+        <input id="openai-key-input" type="password" placeholder="sk-..." autocomplete="off" />
+      </label>
+      <button class="close-btn" data-close="settings-panel">Close</button>
+    </div>
+
+    <div id="esc-help-panel" class="floating-panel hidden help-panel">
+      <h3>Field Guide</h3>
+      <p>EcoRift links each mission action to real environmental outcomes. Use this guide when you hit <strong>Esc</strong>.</p>
+      <div class="help-grid">
+        <div class="card">
+          <h4>Game Outline</h4>
+          <p>1) Scan and identify ecosystem stress in each region.</p>
+          <p>2) Neutralize active pollution emitters to stop damage at the source.</p>
+          <p>3) Run restoration actions (cleanup, filter, replant, stabilize, energy transition).</p>
+          <p>4) Resolve disasters quickly before they trigger climate penalties.</p>
+          <p>5) Keep healthy metrics above unhealthy metrics for long-term recovery.</p>
+        </div>
+        <div class="card">
+          <h4>Real-World Why</h4>
+          <p><strong>Air pollution:</strong> PM2.5 and NOx increase asthma and heart risks.</p>
+          <p><strong>Water contamination:</strong> toxins and plastic reduce oxygen and collapse food webs.</p>
+          <p><strong>Biodiversity loss:</strong> ecosystems lose resilience to heat, floods, and disease.</p>
+          <p><strong>Dirty energy:</strong> raises CO2 and storm severity over time.</p>
+        </div>
+        <div class="card">
+          <h4>Support the Environment</h4>
+          <p>Choose low-waste products and reduce single-use plastics.</p>
+          <p>Use public transit, bike, or efficient vehicles when possible.</p>
+          <p>Support local restoration groups and habitat protection efforts.</p>
+          <p>Advocate for clean energy and responsible industrial policies.</p>
+        </div>
+        <div class="card">
+          <h4>Controls</h4>
+          <p><strong>WASD</strong> move | <strong>Mouse</strong> look/aim | <strong>Left Click</strong> fire</p>
+          <p><strong>E</strong> interact | <strong>Q</strong> drone scan | <strong>F</strong> fullscreen</p>
+          <p><strong>M</strong> satellite mode | <strong>R</strong> reload | <strong>Esc</strong> toggle guide</p>
+        </div>
+      </div>
+      <div id="help-region-brief" class="card"></div>
+      <button id="help-close" class="close-btn">Return to Field</button>
+    </div>
+
+    <div id="dialogue-panel" class="floating-panel hidden dialogue-panel">
+      <h3 id="dialogue-npc"></h3>
+      <p id="dialogue-text"></p>
+      <div id="dialogue-options"></div>
+      <div id="dialogue-answer-wrap" class="hidden">
+        <label for="dialogue-answer-input">Your Response</label>
+        <textarea id="dialogue-answer-input" rows="4" placeholder="Type your answer here"></textarea>
+        <button id="dialogue-answer-submit" type="button">Submit Answer</button>
+      </div>
+      <button class="close-btn" id="dialogue-close">End Dialogue</button>
+    </div>
+
+    <div id="disaster-alert" class="hidden"></div>
+
+    <div id="timelapse-banner" class="hidden"></div>
+
+    <div id="ares-panel" class="floating-panel hidden">
+      <h3>ARES Core Decision</h3>
+      <p>The industrial control core is vulnerable. Choose the future architecture.</p>
+      <div class="decision-grid">
+        <button data-decision="destroy">Destroy ARES</button>
+        <button data-decision="control">Take Control</button>
+        <button data-decision="repurpose">Repurpose for Restoration</button>
+      </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

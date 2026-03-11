@@ -1,0 +1,47 @@
+{
+  "npcId": "captain_elias_torres",
+  "name": "Captain Elias Torres",
+  "startNode": "intro",
+  "nodes": {
+    "intro": {
+      "text": "My fleet can tow debris fields, but we need reef anchors restored or currents will keep pulling plastics back in.",
+      "options": [
+        {
+          "text": "I will reinforce the coral lattice sites.",
+          "next": "reef_ops",
+          "reputationDelta": 2,
+          "unlockMission": "restore_coral_reefs"
+        },
+        {
+          "text": "How are storms affecting your routes?",
+          "next": "storm_ops",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "reef_ops": {
+      "text": "Place reef cores along the shelf edge. Healthy coral slows wave energy and traps fewer synthetic particles.",
+      "options": [
+        {
+          "text": "I will lock in the shelf perimeter.",
+          "next": "end",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "storm_ops": {
+      "text": "Storm cells are stronger every season. If your climate index rises, we can keep vessels in water longer.",
+      "options": [
+        {
+          "text": "Then climate stabilization is now part of every run.",
+          "next": "end",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "end": {
+      "text": "You keep the coast alive, we keep the sea lanes clear.",
+      "options": []
+    }
+  }
+}

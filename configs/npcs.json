@@ -1,0 +1,44 @@
+{
+  "npcs": [
+    {
+      "id": "dr_maya_chen",
+      "name": "Dr Maya Chen",
+      "title": "Ocean scientist",
+      "region": "coastal_plastic_zone",
+      "position": {"x": -4.5, "y": 1.3, "z": -139.6},
+      "lore": "Researching nano and microplastic accumulation in trophic chains."
+    },
+    {
+      "id": "captain_elias_torres",
+      "name": "Captain Elias Torres",
+      "title": "Cleanup fleet captain",
+      "region": "toxic_river_basin",
+      "position": {"x": -133.6, "y": 1.3, "z": -39.6},
+      "lore": "Coordinates autonomous trawlers that recover floating plastic islands."
+    },
+    {
+      "id": "ava_singh",
+      "name": "Ava Singh",
+      "title": "Restoration engineer",
+      "region": "industrial_smog_city",
+      "position": {"x": 133.4, "y": 1.3, "z": -39.8},
+      "lore": "Prototypes carbon-negative grid hardware and factory interception nodes."
+    },
+    {
+      "id": "jonas_walker",
+      "name": "Jonas Walker",
+      "title": "Former corporate analyst",
+      "region": "melting_arctic_station",
+      "position": {"x": 90.1, "y": 1.3, "z": 112.8},
+      "lore": "Has insider access logs pointing at ARES command relays."
+    },
+    {
+      "id": "lina_park",
+      "name": "Lina Park",
+      "title": "Renewable grid architect",
+      "region": "dying_rainforest",
+      "position": {"x": -90.2, "y": 1.3, "z": 111.7},
+      "lore": "Builds resilient storage-backed clean grids for high-risk regions."
+    }
+  ]
+}

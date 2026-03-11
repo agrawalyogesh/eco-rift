@@ -1,0 +1,48 @@
+{
+  "npcId": "dr_maya_chen",
+  "name": "Dr Maya Chen",
+  "startNode": "intro",
+  "nodes": {
+    "intro": {
+      "text": "Microplastic concentrations just crossed irreversible thresholds in the bay food chain. We still have a window if we act now.",
+      "options": [
+        {
+          "text": "I can deploy cleanup sweeps immediately.",
+          "next": "cleanup_brief",
+          "reputationDelta": 2,
+          "unlockMission": "clean_plastic_islands"
+        },
+        {
+          "text": "Any signs this was coordinated?",
+          "next": "ares_hint",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "cleanup_brief": {
+      "text": "Target the densest plastic clusters first. If they fragment, each fragment becomes a long-term toxin vector.",
+      "options": [
+        {
+          "text": "Understood. I will prioritize cluster collapse prevention.",
+          "next": "end",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "ares_hint": {
+      "text": "Telemetry from autonomous skimmers shows synchronized dumping cycles. That pattern is too clean to be accidental.",
+      "options": [
+        {
+          "text": "I will trace command traffic while I clean the bay.",
+          "next": "end",
+          "reputationDelta": 1,
+          "unlockMission": "restore_coral_reefs"
+        }
+      ]
+    },
+    "end": {
+      "text": "Bring the ocean back to a breathable state and species rebound will begin within weeks.",
+      "options": []
+    }
+  }
+}

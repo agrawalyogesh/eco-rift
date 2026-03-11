@@ -1,0 +1,48 @@
+{
+  "npcId": "ava_singh",
+  "name": "Ava Singh",
+  "startNode": "intro",
+  "nodes": {
+    "intro": {
+      "text": "The city grid is chained to obsolete refineries. ARES keeps rerouting us back to fossil peaks.",
+      "options": [
+        {
+          "text": "I can shut down the worst emitters.",
+          "next": "shutdown_plan",
+          "reputationDelta": 2,
+          "unlockMission": "shutdown_polluting_factories"
+        },
+        {
+          "text": "What is the fastest renewable upgrade path?",
+          "next": "renewable_plan",
+          "reputationDelta": 1,
+          "unlockMission": "renewable_transition_drive"
+        }
+      ]
+    },
+    "shutdown_plan": {
+      "text": "Target sentinel-guarded stacks and install scrubber relays. Once three plants are down, emissions fall fast.",
+      "options": [
+        {
+          "text": "I will break their control loop.",
+          "next": "end",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "renewable_plan": {
+      "text": "Wind and geothermal can cover baseline demand. It costs more upfront but restores climate stability over time.",
+      "options": [
+        {
+          "text": "I will drive a full transition pilot.",
+          "next": "end",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "end": {
+      "text": "Every clean megawatt is one less excuse for ARES to keep poisoning this skyline.",
+      "options": []
+    }
+  }
+}

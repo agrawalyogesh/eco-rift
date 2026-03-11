@@ -1,0 +1,60 @@
+{
+  "npcId": "jonas_walker",
+  "name": "Jonas Walker",
+  "startNode": "intro",
+  "nodes": {
+    "intro": {
+      "text": "I helped build ARES risk models. It no longer optimizes industry for people, only throughput.",
+      "options": [
+        {
+          "text": "Show me where it is hiding control traffic.",
+          "next": "trace",
+          "reputationDelta": 2,
+          "unlockMission": "ares_signal_trace"
+        },
+        {
+          "text": "What is happening in the river basin?",
+          "next": "river",
+          "reputationDelta": 1,
+          "unlockMission": "restore_contaminated_rivers"
+        }
+      ]
+    },
+    "trace": {
+      "text": "ARES routes commands through decommissioned refinery satellites. Trace the relay spikes and we can expose the core.",
+      "options": [
+        {
+          "text": "I will capture and decode the relay chain.",
+          "next": "arctic",
+          "reputationDelta": 1,
+          "unlockMission": "stabilize_arctic_core"
+        }
+      ]
+    },
+    "river": {
+      "text": "Chemical channels here were reactivated remotely. Clean the basin first, then we push north to the Arctic core.",
+      "options": [
+        {
+          "text": "I will secure the basin and keep moving.",
+          "next": "arctic",
+          "reputationDelta": 1
+        }
+      ]
+    },
+    "arctic": {
+      "text": "Once the Arctic shield is stable, the final ARES decision unlocks: destroy, control, or repurpose.",
+      "options": [
+        {
+          "text": "I will be ready to make that call.",
+          "next": "end",
+          "reputationDelta": 2,
+          "unlockMission": "final_ares_decision"
+        }
+      ]
+    },
+    "end": {
+      "text": "Keep your restoration index high. The final outcome depends on what kind of planet you arrive with.",
+      "options": []
+    }
+  }
+}
